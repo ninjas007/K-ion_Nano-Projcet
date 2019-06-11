@@ -11,7 +11,10 @@ class Slider extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['home_model', 'slider_model']);
+
+		if($this->session->userdata('status') != "login"){
+			redirect(base_url("login"));
+		}
 
 	}
 
@@ -36,6 +39,7 @@ class Slider extends CI_Controller {
 	 */
 	public function get()
 	{
+		$this->load->model('home_model');
 		$result = $this->home_model->getSlider();
 
 		return $this->output
@@ -50,10 +54,8 @@ class Slider extends CI_Controller {
 	 */
 	public function add()
 	{
+		$this->load->model('slider_model');
         $this->load->library('form_validation');
-        // echo '<pre>';
-        // var_dump($this->input->post());
-        // die();
         
         $image = $this->uploadImg();
 
@@ -114,7 +116,7 @@ class Slider extends CI_Controller {
 	 */
 	public function update()
 	{
-
+		$this->load->model('slider_model');
 		$tblSlider = $this->db->where('id_slider', $this->input->post('id'))->get('tbl_slider')->row_array();
 		$imageHapus = $tblSlider['image_slider'];
 		$image = $this->uploadImg();
@@ -217,6 +219,7 @@ class Slider extends CI_Controller {
 	*/
 	public function delete()
 	{
+		$this->load->model('slider_model');
 		$id = $this->input->post('id');
 		$tblSlider = $this->db->where('id_slider', $id)->get('tbl_slider')->row_array();
 		$imageHapus = $tblSlider['image_slider'];

@@ -12,6 +12,10 @@ class Navbar_model extends CI_Model
      */
     public function updateNavbar($id, $name, $link)
     {
+        if ($link == "") {
+            $link = "#";
+        }
+        
         $this->db->where('id_navbar', $id);
         $this->db->update('tbl_navbar', ['name_navbar' => $name, 'link_of_navbar' => $link]);
 
@@ -23,8 +27,14 @@ class Navbar_model extends CI_Model
      * 
      *  @return changed rows    number
      */
-    public function addNavbar($name, $link = "")
+    public function addNavbar($name, $link)
     {
+        if ($link == "") {
+            $link = "#";
+        }
+
+        var_dump($link);
+        die();
         $this->db->insert('tbl_navbar', ['name_navbar' => $name, 'link_of_navbar' => $link]);
 
         return $this->db->affected_rows();

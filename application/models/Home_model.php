@@ -56,13 +56,13 @@ class Home_model extends CI_Model
     }
 
     /**
-     * Get data Countdown
+     * Get data promo
      *
      * @return array
      */
-    public function getCountdown()
+    public function getPromo()
     {
-        return $this->db->get('tbl_countdown')->row_array();
+        return $this->db->get('tbl_promo')->row_array();
     }
 
      /**
@@ -113,6 +113,26 @@ class Home_model extends CI_Model
     public function getContacts()
     {
     	return $this->db->get('tbl_contacts')->row_array();
+    }
+
+     /**
+     * Get data rekening
+     *
+     * @return array
+     */
+    public function getRekening()
+    {
+        return $this->db->get('tbl_rekening')->result_array();
+    }
+
+     /**
+     * Get data kurir
+     *
+     * @return array
+     */
+    public function getKurir()
+    {
+        return $this->db->get('tbl_kurir')->result_array();
     }
 
 }

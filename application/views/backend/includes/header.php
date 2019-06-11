@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Admin | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -83,10 +83,10 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                      <a href="<?php echo base_url('changePassword') ?>" class="btn btn-default btn-flat">Change Password</a>
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="<?php echo base_url('login/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -115,31 +115,20 @@
           </div>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
-              <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>Menu Home</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="<?php echo base_url('backend/navbar') ?>"><i class="fa fa-circle-o"></i> Menu Website</a></li>
+          <ul class="sidebar-menu">
+                <li><a href="<?php echo base_url('backend/logo') ?>"><i class="fa fa-circle-o"></i> Logo</a></li>
+                <!-- <li><a href="<?php echo base_url('backend/navbar') ?>"><i class="fa fa-circle-o"></i> Menu Website</a></li> -->
                 <li><a href="<?php echo base_url('backend/marquee') ?>"><i class="fa fa-circle-o"></i> Marquee</a></li>
                 <li><a href="<?php echo base_url('backend/slider') ?>"><i class="fa fa-circle-o"></i> Sliders</a></li>
                 <li><a href="<?php echo base_url('backend/banner') ?>"><i class="fa fa-circle-o"></i> Banners</a></li>
-                <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                <li><a href="<?php echo base_url('backend/product') ?>"><i class="fa fa-circle-o"></i> Products</a></li>
+                <li><a href="<?php echo base_url('backend/testimonial') ?>"><i class="fa fa-circle-o"></i> Testimonials</a></li>
+                <li><a href="<?php echo base_url('backend/description') ?>"><i class="fa fa-circle-o"></i> Description</a></li>
+                <li><a href="<?php echo base_url('backend/address') ?>"><i class="fa fa-circle-o"></i> Address</a></li>
+                <li><a href="<?php echo base_url('backend/contact') ?>"><i class="fa fa-circle-o"></i> Contact</a></li>
+                <li><a href="<?php echo base_url('backend/rekening') ?>"><i class="fa fa-circle-o"></i> Rekening</a></li>
+                <li><a href="<?php echo base_url('backend/kurir') ?>"><i class="fa fa-circle-o"></i> Kurir</a></li>
               </ul>
-            </li>
-          </ul>
         </section>
         <!-- /.sidebar -->
       </aside>

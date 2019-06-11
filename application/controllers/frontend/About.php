@@ -11,6 +11,7 @@ class About extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('home_model');
 
 	}
 
@@ -22,9 +23,18 @@ class About extends CI_Controller {
 	 */
 	public function index()
 	{
-		// $data['products'] = $this->about_model->get();
+		$header['navbars'] = $this->home_model->getNavbar();
+		$header['marquee'] = $this->home_model->getMarquee();
+		
+		$data['descriptionToSell'] = $this->home_model->getDescriptionToSell();
+		
+		$footer['address'] = $this->home_model->getAddress();
+		$footer['contacts'] = $this->home_model->getContacts();
 
-		$this->load->view('frontend/about/index_about');
+		$this->load->view('frontend/includes/header', $header);
+		$this->load->view('frontend/about/index_about', $data);
+		$this->load->view('frontend/includes/footer', $footer);
+		$this->load->view('frontend/includes/footer_about');
 	}
 
 }

@@ -165,6 +165,14 @@
     <!-- /.tab-pane -->
   </div>
 </aside>
+
+<footer class="main-footer">
+<div class="pull-right hidden-xs">
+<b>Version</b> 2.4.0
+</div>
+<strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+reserved.
+</footer>
 <!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
 immediately after the control sidebar -->
@@ -203,10 +211,3 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="<?php echo $pathAssets; ?>dist/js/demo.js"></script>
 </body>
 </html>
-<footer class="main-footer">
-<div class="pull-right hidden-xs">
-<b>Version</b> 2.4.0
-</div>
-<strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-reserved.
-</footer>

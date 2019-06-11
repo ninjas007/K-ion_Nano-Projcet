@@ -11,7 +11,10 @@ class Marquee extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['home_model', 'marquee_model']);
+
+		if($this->session->userdata('status') != "login"){
+			redirect(base_url("login"));
+		}
 
 	}
 
@@ -36,6 +39,7 @@ class Marquee extends CI_Controller {
 	 */
 	public function get()
 	{
+		$this->load->model('home_model');
 		$result = $this->home_model->getMarquee();
 
 		return $this->output
@@ -51,6 +55,7 @@ class Marquee extends CI_Controller {
 	 */
 	public function save()
 	{
+		$this->load->model('marquee_model');
         $this->load->library('form_validation');
 
 		$marquee = $this->input->post('marquee');

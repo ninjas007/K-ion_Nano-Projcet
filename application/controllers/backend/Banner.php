@@ -11,7 +11,10 @@ class Banner extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['home_model', 'banner_model']);
+
+		if($this->session->userdata('status') != "login"){
+			redirect(base_url("login"));
+		}
 
 	}
 
@@ -24,7 +27,7 @@ class Banner extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('backend/includes/header');
-		$this->load->view('backend/home/index_slider');
+		$this->load->view('backend/home/index_banner');
 		$this->load->view('backend/includes/footer');
 	}
 
@@ -36,6 +39,7 @@ class Banner extends CI_Controller {
 	 */
 	public function get()
 	{
+		$this->load->model('home_model');
 		$result = $this->home_model->getBanner();
 
 		return $this->output
@@ -43,87 +47,26 @@ class Banner extends CI_Controller {
 		->set_output(json_encode($result));
 	}
 
-	/**
-	 * add slider
-	 *
-	 * @return array
-	 */
-	public function add()
-	{
-        $this->load->library('form_validation');
-        // echo '<pre>';
-        // var_dump($this->input->post());
-        // die();
-        
-        $image = $this->uploadImg();
-
-        $data['message'] = '';
-        
-        if ($image['result'] == 'gagal') 
-        {
-        	$data['message'] = $image['data']['error'];
-
-        	return $this->output
-        			->set_content_type('application/json')
-        			->set_output(json_encode($data));
-        }
-		
-		$header = htmlentities($this->input->post('header'));
-		$c_header = $this->input->post('c_header');
-		$desc = htmlentities($this->input->post('description'));
-		$c_desc = $this->input->post('c_desc');
-		$link = htmlentities($this->input->post('linkButton'));
-		$statusBtn = $this->input->post('displayButton');
-		$textButton = htmlentities($this->input->post('textButton'));
-		$image = $image['data']['upload_data']['file_name'];
-
-		$input = [
-            'header_slider' => $header,
-            'color_header' => $c_header,
-            'desc_slider' => $desc,
-            'color_desc' => $c_desc,
-            'link_to_slider' => strtolower($link),
-            'name_to_link' => $textButton,
-            'display_button' => $statusBtn,
-            'image_slider' => $image,
-        ];
-
-		$result = $this->slider_model->add($input);
-
-		if ($result > 0)
-		{
-			$data['message'] = 'Berhasil menyimpan slide';
-			$data['status'] = TRUE;	
-		} 
-		else 
-		{
-			$data['message'] = 'Gagal menyimpan slide';
-			$data['status'] = FALSE;	
-		}
-
-		return $this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($data));
-		
-	}
 
 	/**
-	 * update slider
+	 * update banner
 	 *
 	 * @return array
 	 */
 	public function update()
 	{
 
-		$tblSlider = $this->db->where('id_slider', $this->input->post('id'))->get('tbl_slider')->row_array();
-		$imageHapus = $tblSlider['image_slider'];
+		$this->load->model('banner_model');
+
+		$tblBanner = $this->db->where('id_banner', $this->input->post('id'))->get('tbl_banner')->row_array();
+		$imageHapus = $tblBanner['img_banner'];
 		$image = $this->uploadImg();
 		$failImage = '';
 
 		if ($image['result'] == 'gagal') 
 		{
 			
-			if ($tblSlider['image_slider'] != "")
+			if ($tblBanner['img_banner'] != "")
 			{
 				$imageUpdate = $imageHapus;
 			}
@@ -137,40 +80,32 @@ class Banner extends CI_Controller {
 		}
 
 		$id = $this->input->post('id');
-		$header = htmlentities($this->input->post('header'));
-		$c_header = $this->input->post('c_header');
-		$desc = htmlentities($this->input->post('desc'));
-		$c_desc = $this->input->post('c_desc');
-		$link = htmlentities($this->input->post('linkButton'));
 		$textButton = htmlentities($this->input->post('textButton'));
-		$statusBtn = $this->input->post('displayButton');
+		$statusButton = $this->input->post('statusButton');
+		$linkButton = htmlentities($this->input->post('linkButton'));
 
 		$input = [
-		    'header_slider' => $header,
-		    'color_header' => $c_header,
-		    'desc_slider' => $desc,
-		    'color_desc' => $c_desc,
-		    'link_to_slider' => strtolower($link),
-		    'name_to_link' => $textButton,
-		    'display_button' => $statusBtn,
-		    'image_slider' => $imageUpdate,
+		    'img_banner' => $imageUpdate,
+		    'name_banner' => htmlentities($textButton),
+		    'not_activated' => $statusButton,
+		    'link_to_banner' => strtolower($linkButton),
 		];
 
-		$result = $this->slider_model->update($id, $input);
+		$result = $this->banner_model->update($id, $input);
         $data['message'] = '';
         $data['status'] = '';
 
 		if ($result > 0)
 		{
 			if ($imageHapus != $imageUpdate) {
-				unlink('assets/template_frontend/images/slider/'.$imageHapus);
+				unlink('assets/template_frontend/images/banner/'.$imageHapus);
 			}
-			$data['message'] = 'Berhasil mengubah slide';	
+			$data['message'] = 'Berhasil mengubah banner';	
 			$data['status'] = TRUE;	
 		}
 		else
 		{
-			$data['message'] = "Gagal mengubah slide $failImage";
+			$data['message'] = "Gagal mengubah banner $failImage";
 			$data['status'] = FALSE;	
 		}
 
@@ -187,7 +122,7 @@ class Banner extends CI_Controller {
 	 */
 	public function uploadImg()
 	{
-		$config['upload_path'] 	 = './assets/template_frontend/images/slider/';
+		$config['upload_path'] 	 = './assets/template_frontend/images/banner/';
 		$config['allowed_types'] = 'jpg|jpeg';
 		$config['max_size']      = 2048;
         // $config['max_width']     = 2048;
@@ -209,35 +144,6 @@ class Banner extends CI_Controller {
             return ['result' => 'berhasil', 'data' => $data];
         }
 		
-	}
-
-	/**
-	* Delete slide
-	*
-	*/
-	public function delete()
-	{
-		$id = $this->input->post('id');
-		$tblSlider = $this->db->where('id_slider', $id)->get('tbl_slider')->row_array();
-		$imageHapus = $tblSlider['image_slider'];
-
-		$result = $this->slider_model->delete($id);
-
-		if ($result > 0) 
-		{
-			unlink('assets/template_frontend/images/slider/'.$imageHapus);
-			$data['message'] = 'Berhasil mendelete slide';	
-			$data['status'] = TRUE;	
-		} 
-		else 
-		{
-			$data['message'] = 'Gagal mendelete slide';
-			$data['status'] = FALSE;
-		}
-
-		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($data));
 	}
 
 }

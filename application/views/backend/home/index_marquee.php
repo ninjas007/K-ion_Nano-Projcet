@@ -55,7 +55,7 @@
 
         $('.box-body').html(`
           <p><marquee behavior="" direction="">${response.marquee}</marquee></p>
-          <input type="text" class="form-control" placeholder="Tulis marquee disini" id="marquee">
+          <textarea class="textarea form-control" id="marquee" placeholder="Tulis marquee disini" cols="4" rows="4" style="resize:none">${response.marquee}</textarea>
           <br>
           <label for="">Aktifkan / Non aktifkan marquee</label>
           <select class="form-control" id="no-active">

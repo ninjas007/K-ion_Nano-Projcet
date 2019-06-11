@@ -11,7 +11,10 @@ class Navbar extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['home_model', 'navbar_model']);
+
+		if($this->session->userdata('status') != "login"){
+			redirect(base_url("login"));
+		}
 
 	}
 
@@ -37,6 +40,8 @@ class Navbar extends CI_Controller {
 	 */
 	public function get()
 	{
+		$this->load->model('home_model');
+
 		$result = $this->home_model->getNavbar();
 
 		return $this->output
@@ -52,6 +57,8 @@ class Navbar extends CI_Controller {
 	 */
 	public function add()
 	{
+		$this->load->model('navbar_model');
+
         $this->load->library('form_validation');
 
 		$name = $this->input->post('name');
@@ -91,6 +98,8 @@ class Navbar extends CI_Controller {
 	 */
 	public function update()
 	{
+		$this->load->model('navbar_model');
+
 		$id = $this->input->post('id');
 		$name = $this->input->post('name');
 		$link = $this->input->post('link');
@@ -115,6 +124,8 @@ class Navbar extends CI_Controller {
 	 */
 	public function hapus()
 	{
+		$this->load->model('navbar_model');
+
 		$id = $this->input->post('id');
 		$data['message'] = "";
 		$result = $this->navbar_model->hapusNavbar($id);

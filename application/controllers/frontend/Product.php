@@ -12,32 +12,41 @@ class Product extends CI_Controller {
 	{
 		parent::__construct();
 		
-		$this->load->model(['product_model']);
 	}
 
 	/**
-	 * View home glasess
+	 * View product
 	 *
-	 * get data sliders, banner, product from every models.
 	 * @return array
 	 */
 	public function index()
 	{
-		$data['products'] = $this->product_model->getProduct();
+		$this->load->model('home_model');
 
-		$this->load->view('frontend/includes/header');
-		$this->load->view('frontend/home/index_home', $data);
-		$this->load->view('frontend/includes/footer');
+		$header['navbars'] = $this->home_model->getNavbar();
+		$header['marquee'] = $this->home_model->getMarquee();
+		
+		$data['products'] = $this->home_model->getProduct();
+		$data['rekenings'] = $this->home_model->getRekening();
+		$data['couriers'] = $this->home_model->getKurir();
+		
+		$data['contacts'] = $this->home_model->getContacts();
+		$data['address'] = $this->home_model->getAddress();
+		
+		$this->load->view('frontend/includes/header', $header);
+		$this->load->view('frontend/product/index_product', $data);
+		$this->load->view('frontend/includes/footer', $data);
+		$this->load->view('frontend/includes/footer_product');
 	}
 
-	public function product()
+	/**
+	 * Send WA
+	 *
+	 * @return array
+	 */
+	public function beli()
 	{
-		$this->load->view('frontend/product/index_product');
-	}
 
-	public function detail()
-	{
-		$this->load->view('frontend/product/detail_product');
 	}
 
 }

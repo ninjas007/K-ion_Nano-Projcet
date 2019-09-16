@@ -40,13 +40,30 @@ class Product extends CI_Controller {
 	}
 
 	/**
-	 * Send WA
+	 * Save data customer
 	 *
 	 * @return array
 	 */
-	public function beli()
+	public function simpanDataCustomer()
 	{
+		// filter string input to just number
+		$telp = preg_replace('/[^0-9]/', '', $this->input->post('hp'));
+		$telpFilter = substr($telp,0,1);
+		
+		if($telpFilter != '0') {
+			$telpLen = strlen($telp); 
+			$telp = '0'. substr($telp, 2, $telpLen);
+		}
+		
 
+		$data = [
+			'nama_customer' => $this->input->post('nama'),
+			'nohp_customer' => $telp,
+			'date_order' => date('Y-m-d'),
+			'description_order' => $this->input->post('description'),
+		];
+
+		$this->db->insert('tbl_customer', $data);
 	}
 
 }

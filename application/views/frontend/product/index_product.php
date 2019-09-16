@@ -103,7 +103,7 @@
 												
 												<div class="card-body">
 													<div class="block2-txt text-center">
-														<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+														<a href="#" class="block2-name dis-block s-text3 p-b-5">
 															<?php echo ucfirst($product['name_product']) ?>
 														</a>
 
@@ -204,7 +204,10 @@
 			      		<tr>
 			      			<td>Pesanan</td>
 			      			<td><input type="text" id="pesanan" class="form-control" value="${product}"></td>
-			      			<td><input type="text" id="qty" value="1"></td>
+			      		</tr>
+			      		<tr>
+			      			<td>Qty</td>
+			      			<td><input type="text" id="qty" class="form-control" value="1"></td>
 			      		</tr>
 			      	</table>
 			      	<small>
@@ -219,14 +222,23 @@
 		$('#beli').click(function(event) {
 			
 			
-			let nama = $('#nama').val()
-			let hp = $('#hp').val()
-			let alamat = $('#alamat').val()
-			let kurir = $('#kurir').val()
-			let layanan = $('#layanan').val()
-			let pesanan = $('#pesanan').val()
-			let qty = $('#qty').val()
-			
+			var nama = $('#nama').val()
+			var hp = $('#hp').val()
+			var alamat = $('#alamat').val()
+			var kurir = $('#kurir').val()
+			var layanan = $('#layanan').val()
+			var pesanan = $('#pesanan').val()
+			var qty = $('#qty').val()
+
+			$.ajax({
+				url: 'frontend/product/simpanDataCustomer',
+				type: 'POST',
+				data: {
+						nama: nama, 
+						hp: hp,
+						description: pesanan}
+			})
+
 			let telp1 = `<?php echo $contacts['no_whatsapp'] ?>`;
 			let length = telp1.length;
             let telp = `62`+telp1.substring(1, length);
@@ -234,6 +246,8 @@
 			$(this).attr('href',`https://web.whatsapp.com/send?phone=`+telp+`&text=Nama%20:%20${nama}%0A Alamat%20:%20${alamat}%0A Hp%20:%20${hp}%0A Kurir%20:%20${kurir}%0A Layanan%20:%20${layanan}%0A pesanan%20:%20${pesanan}%0A qty%20:%20${qty}`)
 
 			$(this).attr('target',`_blank`)
+			
+			
 		});
 			
 	</script>

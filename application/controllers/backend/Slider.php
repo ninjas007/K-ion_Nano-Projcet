@@ -192,8 +192,6 @@ class Slider extends CI_Controller {
 		$config['upload_path'] 	 = './assets/template_frontend/images/slider/';
 		$config['allowed_types'] = 'jpg|jpeg';
 		$config['max_size']      = 2048;
-        // $config['max_width']     = 2048;
-        // $config['max_height']    = 768;
 		$config['file_name'] 	 = sha1(date('YmdHis'));
 
         $this->load->library('upload', $config);

@@ -128,6 +128,7 @@
                 <li><a href="<?php echo base_url('backend/contact') ?>"><i class="fa fa-circle-o"></i> Contact</a></li>
                 <li><a href="<?php echo base_url('backend/rekening') ?>"><i class="fa fa-circle-o"></i> Rekening</a></li>
                 <li><a href="<?php echo base_url('backend/kurir') ?>"><i class="fa fa-circle-o"></i> Kurir</a></li>
+                <li><a href="<?php echo base_url('backend/customer') ?>"><i class="fa fa-users"></i> Data Customer</a></li>
               </ul>
         </section>
         <!-- /.sidebar -->

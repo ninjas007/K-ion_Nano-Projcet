@@ -37,6 +37,7 @@ class Logo extends CI_Controller {
 	 */
 	public function update()
 	{
+		$this->load->library('session');
 		$image = $this->uploadImg();
 
 		if ($image['result'] == 'berhasil')
@@ -64,12 +65,13 @@ class Logo extends CI_Controller {
 	 */
 	public function uploadImg()
 	{
+		unlink(FCPATH.'assets/template_frontend/images/logo/logo.jpg');
+
 		$config['upload_path'] 	 = './assets/template_frontend/images/logo/';
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size']      = 2048;
-		$config['overwrite'] = TRUE;
-        // $config['max_width']     = 2048;
-        // $config['max_height']    = 768;
+        $config['max_width']     = 120;
+        $config['max_height']    = 27;
 		$config['file_name'] 	 = 'logo.jpg';
 
         $this->load->library('upload', $config);

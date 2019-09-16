@@ -8,10 +8,11 @@
     </h1>
   </section>
   <!-- Main content -->
-	<form id="change-image" method="post" enctype="multipart/form-data">
+	<form id="change-image" method="post" action="<?php echo base_url('backend/logo/update') ?>" enctype="multipart/form-data">
 	  <section class="content">
 	    <div class="row">
 	      <div class="col-md-6">
+	      	<?php echo $this->session->flashdata('alert') ?>
 	        <div class="box box-primary">
 	          <div class="box-header ui-sortable-handle" style="cursor: move;">
 	            <i class="ion ion-clipboard"></i>
